@@ -1,7 +1,29 @@
 {
   "name": "bittrex-orderbook",
+  "version": "1.0.3",
+  "description": "Follow the Bittrex orderbook in real time",
+  "main": "index.js",
   "dependencies": {
     "ws": "^2.3.1"
   },
-  "version": "1.0.0"
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bittrex",
+    "orderbook",
+    "bitcoin",
+    "ethereum",
+    "cryptocurrency",
+    "exchange"
+  ],
+  "author": "gtklocker",
+  "license": "MIT",
+  "url": "https://github.com/gtklocker/bittrex-orderbook/issues",
+  "email": "kkarantias@gmail.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gtklocker/poloniex-orderbook.git"
+  }
 }
