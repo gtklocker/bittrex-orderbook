@@ -1,6 +1,6 @@
 {
   "name": "bittrex-orderbook",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Follow the Bittrex orderbook in real time",
   "main": "index.js",
   "dependencies": {
@@ -24,6 +24,6 @@
   "email": "kkarantias@gmail.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gtklocker/poloniex-orderbook.git"
+    "url": "https://github.com/gtklocker/bittrex-orderbook.git"
   }
 }
