@@ -1,0 +1,6 @@
+{
+  "name": "bittrex-orderbook",
+  "dependencies": {
+    "ws": "^2.3.1"
+  }
+}
