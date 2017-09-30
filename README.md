@@ -8,16 +8,15 @@ npm install bittrex-orderbook
 
 ## Usage
 
-```
+```javascript
 const BittrexOrderBook = require('bittrex-orderbook');
-const bit = new BittrexOrderBook();
+const bit = new BittrexOrderBook;
 
-bit.on('askUpdate', () => {
-    console.log('updated ask orderbook', bit.getTopAsk(5));
+bit.market('BTC-XMR').on('bidUpdate', (market) => {
+    console.log('XMR bids', market.bids.top(5));
 });
-
-bit.on('bidUpdate', () => {
-    console.log('updated bid orderbook', bit.getTopBid(5));
+bit.market('BTC-ETH').on('askUpdate', (market) => {
+    console.log('ETH asks', market.bids.top(5));
 });
 ```
 

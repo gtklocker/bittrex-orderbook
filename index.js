@@ -1,69 +1,49 @@
 const BittrexConnection = require('./lib/connection');
-const EventEmitter = require('events');
 const BidOrderBook = require('./lib/bidorderbook');
 const AskOrderBook = require('./lib/askorderbook');
+const Market = require('./lib/market');
 
-class BittrexOrderBook extends EventEmitter {
+class BittrexOrderBook {
     subscribeToMarket(market) {
         return this.conn.call('SubscribeToExchangeDeltas', market);
     }
 
     getInitialState(market) {
-        return this.conn
-            .call('QueryExchangeState', market)
-            .then(state => {
-                let { Sells, Buys } = state;
-
-                // type 0 means new order
-                const addTypeZero = order => {
-                    return {
-                        Type: 0,
-                        ...order
-                    };
-                };
-                Sells = Sells.map(addTypeZero);
-                Buys = Buys.map(addTypeZero);
-                this.onUpdateExchangeState({
-                    Sells,
-                    Buys
-                });
-            })
-    }
-
-    onUpdateExchangeState(update) {
-        update.Sells.forEach(this.askOrderBook.onOrderEvent);
-        if (update.Sells.length > 0) {
-            this.emit('askUpdate');
-        }
-
-        update.Buys.forEach(this.bidOrderBook.onOrderEvent);
-        if (update.Buys.length > 0) {
-            this.emit('bidUpdate');
+        if (this.haveMarket(market)) {
+            return this.conn
+                .call('QueryExchangeState', market)
+                .then(this.markets[market].onInitialState);
         }
     }
 
     setupConn() {
         this.conn = new BittrexConnection;
-        this.conn.on('updateExchangeState', this.onUpdateExchangeState);
-
-        this.conn
-            .connect()
-            .then(() => this.getInitialState(this.market))
-            .then(() => this.subscribeToMarket(this.market));
+        this.conn.on('updateExchangeState', (update) => {
+            const market = update.MarketName;
+            if (this.haveMarket(market)) {
+                this.markets[market].onUpdateExchangeState(update);
+            }
+        });
     }
 
-    // TODO: allow subscription to multiple markets concurrently
-    constructor(market='BTC-XMR') {
-        super();
+    haveMarket(market) {
+        return this.markets.hasOwnProperty(market);
+    }
 
-        this.market = market;
-        this.bidOrderBook = new BidOrderBook();
-        this.askOrderBook = new AskOrderBook();
-        this.getTopAsk = this.askOrderBook.getTop;
-        this.getTopBid = this.bidOrderBook.getTop;
+    market(market) {
+        if (!this.haveMarket(market)) {
+            // create market now
+            this.markets[market] = new Market(market);
+            this.conn
+                .ready()
+                .then(() => this.getInitialState(market))
+                .then(() => this.subscribeToMarket(market));
+        }
+        return this.markets[market];
+    }
 
-        this.onUpdateExchangeState = this.onUpdateExchangeState.bind(this);
-
+    constructor() {
+        this.markets = {};
         this.setupConn();
     }
 }
