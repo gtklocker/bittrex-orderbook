@@ -16,7 +16,7 @@ bit.market('BTC-XMR').on('bidUpdate', (market) => {
     console.log('XMR bids', market.bids.top(5));
 });
 bit.market('BTC-ETH').on('askUpdate', (market) => {
-    console.log('ETH asks', market.bids.top(5));
+    console.log('ETH asks', market.asks.top(5));
 });
 ```
 
