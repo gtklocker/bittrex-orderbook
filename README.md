@@ -19,7 +19,3 @@ bit.market('BTC-ETH').on('askUpdate', (market) => {
     console.log('ETH asks', market.asks.top(5));
 });
 ```
-
-## TODO
-
-* Ensure integrity with nonce.
