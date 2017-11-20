@@ -1,7 +1,7 @@
-const BittrexConnection = require('./lib/connection');
-const BidOrderBook = require('./lib/bidorderbook');
-const AskOrderBook = require('./lib/askorderbook');
-const Market = require('./lib/market');
+const BittrexConnection = require('./connection');
+const BidOrderBook = require('./bidorderbook');
+const AskOrderBook = require('./askorderbook');
+const Market = require('./market');
 
 class BittrexOrderBook {
     subscribeToMarket(market) {
