@@ -9,10 +9,10 @@
     "winston": "^2.3.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0-beta.32",
-    "@babel/core": "^7.0.0-beta.32",
-    "@babel/preset-env": "^7.0.0-beta.32",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0"
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
   },
   "scripts": {
     "build": "babel -d dist src",
