@@ -1,3 +1,5 @@
+require('babel-polyfill');
+
 const BittrexConnection = require('./connection');
 const BidOrderBook = require('./bidorderbook');
 const AskOrderBook = require('./askorderbook');

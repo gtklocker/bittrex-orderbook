@@ -4,6 +4,7 @@
   "description": "Follow the Bittrex orderbook in real time",
   "main": "dist/index.js",
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "cloudscraper": "^1.4.1",
     "signalr-client": "^0.0.17",
     "winston": "^2.3.1"
