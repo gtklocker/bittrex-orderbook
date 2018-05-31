@@ -16,8 +16,8 @@
     "babel-preset-env": "^1.7.0"
   },
   "scripts": {
-    "build": "babel -d dist src",
-    "watch": "babel -w -d dist src",
+    "build": "rm -rf dist && babel -d dist src",
+    "watch": "rm -rf dist && babel -w -d dist src",
     "prepare": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
