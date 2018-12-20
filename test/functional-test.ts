@@ -1,5 +1,5 @@
 const assert = require('assert')
-const BittrexOrderBook = require('../src/')
+import BittrexOrderBook from '../src/'
 
 describe('bittrex-orderbook', function () {
   const PAIR = 'USD-BTC'

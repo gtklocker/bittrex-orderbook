@@ -1,24 +1,20 @@
 const BittrexConnection = require('./connection')
-const BidOrderBook = require('./bidorderbook')
-const AskOrderBook = require('./askorderbook')
 const Market = require('./market')
 
+type MarketName = string
+
 class BittrexOrderBook {
-  subscribeToMarket (market) {
-    return this.conn.call('SubscribeToExchangeDeltas', market)
+  public markets: {[id: string]: any} = {}
+  public conn: any
+
+  constructor () {
+    this.setupConn()
   }
 
-  getInitialState (market) {
-    if (this.haveMarket(market)) {
-      return this.conn
-                .call('QueryExchangeState', market)
-                .then(this.markets[market].onInitialState)
-    }
-  }
-
-  setupConn () {
+  private setupConn () {
     this.conn = new BittrexConnection()
-    this.conn.on('updateExchangeState', (update) => {
+
+    this.conn.on('updateExchangeState', (update: any) => {
       const market = update.MarketName
       if (this.haveMarket(market)) {
         this.markets[market].onUpdateExchangeState(update)
@@ -26,11 +22,7 @@ class BittrexOrderBook {
     })
   }
 
-  haveMarket (market) {
-    return this.markets.hasOwnProperty(market)
-  }
-
-  market (market) {
+  public market (market: MarketName) {
     if (!this.haveMarket(market)) {
             // create market now
       this.markets[market] = new Market(market)
@@ -42,10 +34,21 @@ class BittrexOrderBook {
     return this.markets[market]
   }
 
-  constructor () {
-    this.markets = {}
-    this.setupConn()
+  subscribeToMarket (market: MarketName) {
+    return this.conn.call('SubscribeToExchangeDeltas', market)
+  }
+
+  getInitialState (market: MarketName) {
+    if (this.haveMarket(market)) {
+      return this.conn
+                .call('QueryExchangeState', market)
+                .then(this.markets[market].onInitialState)
+    }
+  }
+
+  public haveMarket (market: MarketName): boolean {
+    return this.markets.hasOwnProperty(market)
   }
 }
 
-module.exports = BittrexOrderBook
+export default BittrexOrderBook
