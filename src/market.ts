@@ -1,14 +1,31 @@
-const assert = require('assert')
-const EventEmitter = require('events')
 const BidOrderBook = require('./bidorderbook')
 const AskOrderBook = require('./askorderbook')
 
+import EventEmitter from 'events'
+
+type MarketName = string
+
 class Market extends EventEmitter {
-  onInitialState (state) {
+  public name: MarketName
+  public bids: any
+  public asks: any
+
+  constructor (name: MarketName) {
+    super()
+
+    this.onInitialState = this.onInitialState.bind(this)
+    this.onUpdateExchangeState = this.onUpdateExchangeState.bind(this)
+
+    this.name = name
+    this.bids = new BidOrderBook()
+    this.asks = new AskOrderBook()
+  }
+
+  onInitialState (state: any) {
     let { Sells, Buys } = state
 
         // type 0 means new order
-    const addTypeZero = order => {
+    const addTypeZero = (order: any) => {
       return {
         Type: 0,
         ...order
@@ -22,7 +39,7 @@ class Market extends EventEmitter {
     })
   }
 
-  onUpdateExchangeState (update) {
+  onUpdateExchangeState (update: any) {
     update.Sells.forEach(this.asks.onOrderEvent)
     if (update.Sells.length > 0) {
       this.emit('askUpdate', this)
@@ -33,17 +50,6 @@ class Market extends EventEmitter {
       this.emit('bidUpdate', this)
     }
   }
-
-  constructor (name) {
-    super()
-
-    this.onInitialState = this.onInitialState.bind(this)
-    this.onUpdateExchangeState = this.onUpdateExchangeState.bind(this)
-
-    this.name = name
-    this.bids = new BidOrderBook()
-    this.asks = new AskOrderBook()
-  }
 }
 
-module.exports = Market
+export default Market
