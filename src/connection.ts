@@ -5,18 +5,22 @@ const singalR = require('signalr-client')
 const PROTECTED_PAGE = 'https://bittrex.com/Market/Index?MarketName=USDT-BTC'
 
 class BittrexConnection {
+  public client: any
+  public awaitingClients: any[] = []
+  public isConnected: boolean = false
+
     // TODO(gtklocker): handle case where client disconnects mid-operation
-  on (evt, cb) {
+  on (evt: string, cb: (str: any) => void) {
     this.client.on('CoreHub', evt, cb)
   }
 
-  call (method, ...args) {
+  call (method: string, ...args: any[]) {
     const callRepr = `${method}(${args.join(', ')})`
     return new Promise((resolve, reject) => {
       winston.debug('Calling', callRepr)
       this.client
                 .call('CoreHub', method, ...args)
-                .done((err, res) => {
+                .done((err: Error | undefined, res: any) => {
                   if (err) {
                     winston.debug(callRepr, 'returned with error', err)
                     reject(err)
@@ -52,9 +56,6 @@ class BittrexConnection {
             true                                    // don't start automatically
         )
 
-    this.awaitingClients = []
-    this.isConnected = false
-
     this.client.serviceHandlers.connected = () => {
       this.isConnected = true
 
@@ -71,7 +72,7 @@ class BittrexConnection {
         client.reject()
       }
     }
-    cloudscraper.get(PROTECTED_PAGE, (err, resp, body) => {
+    cloudscraper.get(PROTECTED_PAGE, (err: any, resp: any) => {
       if (err) {
         winston.warn('failed to get cloudflare cookie')
       } else {
@@ -82,4 +83,4 @@ class BittrexConnection {
   }
 }
 
-module.exports = BittrexConnection
+export default BittrexConnection
