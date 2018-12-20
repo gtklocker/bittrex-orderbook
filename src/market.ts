@@ -1,14 +1,13 @@
-const BidOrderBook = require('./bidorderbook')
-const AskOrderBook = require('./askorderbook')
-
+import BidOrderBook from './bidorderbook'
+import AskOrderBook from './askorderbook'
 import EventEmitter from 'events'
 
 type MarketName = string
 
 class Market extends EventEmitter {
   public name: MarketName
-  public bids: any
-  public asks: any
+  public bids: BidOrderBook
+  public asks: AskOrderBook
 
   constructor (name: MarketName) {
     super()

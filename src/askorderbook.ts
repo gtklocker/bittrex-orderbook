@@ -1,12 +1,18 @@
-const OrderBook = require('./orderbook')
+import OrderBook from './orderbook'
 
 class AskOrderBook extends OrderBook {
-  top (limit= 1) {
+  constructor () {
+    super()
+  }
+
+  top (limit = 1) {
     const rates = Object.values(this.store).map(o => o.rate)
+
     rates.sort((a, b) => a - b)
     rates.splice(limit)
+
     return rates.map(key => this.store[key])
   }
 }
 
-module.exports = AskOrderBook
+export default AskOrderBook

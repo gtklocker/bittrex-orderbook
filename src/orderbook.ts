@@ -1,11 +1,17 @@
+type OrderBookRecord = {
+  rate: number,
+  quantity: number
+}
+
 class OrderBook {
+  public store: {[key: string]: OrderBookRecord} = {}
+
   constructor () {
-    this.store = {}
     this.onOrderEvent = this.onOrderEvent.bind(this)
     this.top = this.top.bind(this)
   }
 
-  onOrderEvent (orderEvent) {
+  onOrderEvent (orderEvent: any) {
     switch (orderEvent.Type) {
       case 0: // new
       case 2: // update
@@ -25,9 +31,9 @@ class OrderBook {
     }
   }
 
-  top (limit) {
+  top (_limit: number) {
     console.log('no getTop method defined for this class')
   }
 }
 
-module.exports = OrderBook
+export default OrderBook
