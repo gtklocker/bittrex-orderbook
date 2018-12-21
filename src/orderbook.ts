@@ -11,7 +11,7 @@ class OrderBook {
     this.top = this.top.bind(this)
   }
 
-  onOrderEvent (orderEvent: any) {
+  onOrderEvent (orderEvent: any): void {
     switch (orderEvent.Type) {
       case 0: // new
       case 2: // update
@@ -31,7 +31,7 @@ class OrderBook {
     }
   }
 
-  top (_limit: number) {
+  top (_limit: number): void {
     console.log('no getTop method defined for this class')
   }
 }
