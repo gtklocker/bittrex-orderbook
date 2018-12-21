@@ -1,5 +1,7 @@
 # bittrex-orderbook
 
+[![](https://img.shields.io/npm/v/bittrex-orderbook.svg)](https://www.npmjs.com/package/bittrex-orderbook)
+
 ## Installation
 
 ```
