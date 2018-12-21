@@ -3,7 +3,7 @@ type OrderBookRecord = {
   quantity: number
 }
 
-class OrderBook {
+abstract class OrderBook {
   public store: {[key: string]: OrderBookRecord} = {}
 
   constructor () {
@@ -31,9 +31,7 @@ class OrderBook {
     }
   }
 
-  top (_limit: number): void {
-    console.log('no getTop method defined for this class')
-  }
+  abstract top (limit: number): any[]
 }
 
 export default OrderBook
