@@ -20,7 +20,7 @@ class Market extends EventEmitter {
     this.asks = new AskOrderBook()
   }
 
-  onInitialState (state: any) {
+  onInitialState (state: any): void {
     let { Sells, Buys } = state
 
         // type 0 means new order
@@ -38,7 +38,7 @@ class Market extends EventEmitter {
     })
   }
 
-  onUpdateExchangeState (update: any) {
+  onUpdateExchangeState (update: any): void {
     update.Sells.forEach(this.asks.onOrderEvent)
     if (update.Sells.length > 0) {
       this.emit('askUpdate', this)

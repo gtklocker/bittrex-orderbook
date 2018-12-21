@@ -11,7 +11,7 @@ class BittrexOrderBook {
     this.setupConn()
   }
 
-  private setupConn () {
+  private setupConn (): void {
     this.conn = new BittrexConnection()
 
     this.conn.on('updateExchangeState', (update: any) => {
@@ -22,7 +22,7 @@ class BittrexOrderBook {
     })
   }
 
-  public market (market: MarketName) {
+  public market (market: MarketName): void {
     if (!this.haveMarket(market)) {
             // create market now
       this.markets[market] = new Market(market)
@@ -34,11 +34,11 @@ class BittrexOrderBook {
     return this.markets[market]
   }
 
-  subscribeToMarket (market: MarketName) {
+  subscribeToMarket (market: MarketName): any {
     return this.conn.call('SubscribeToExchangeDeltas', market)
   }
 
-  getInitialState (market: MarketName) {
+  getInitialState (market: MarketName): any {
     if (this.haveMarket(market)) {
       return this.conn
                 .call('QueryExchangeState', market)

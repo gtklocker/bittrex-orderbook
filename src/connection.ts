@@ -9,12 +9,12 @@ class BittrexConnection {
   public awaitingClients: any[] = []
   public isConnected: boolean = false
 
-    // TODO(gtklocker): handle case where client disconnects mid-operation
-  on (evt: string, cb: (str: any) => void) {
+  // TODO(gtklocker): handle case where client disconnects mid-operation
+  on (evt: string, cb: (str: any) => void): void {
     this.client.on('CoreHub', evt, cb)
   }
 
-  call (method: string, ...args: any[]) {
+  call (method: string, ...args: any[]): Promise<any> {
     const callRepr = `${method}(${args.join(', ')})`
     return new Promise((resolve, reject) => {
       winston.debug('Calling', callRepr)
@@ -34,7 +34,7 @@ class BittrexConnection {
     })
   }
 
-  ready () {
+  ready (): Promise<any> {
     return new Promise((resolve, reject) => {
       if (this.isConnected) {
         resolve()
