@@ -1,6 +1,6 @@
 {
   "name": "bittrex-orderbook",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "Follow the Bittrex orderbook in real time",
   "main": "dist/src/index.js",
   "dependencies": {
