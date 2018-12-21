@@ -2,22 +2,18 @@
   "name": "bittrex-orderbook",
   "version": "2.0.7",
   "description": "Follow the Bittrex orderbook in real time",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
     "cloudscraper": "^1.4.1",
     "signalr-client": "^0.0.17",
     "winston": "^2.3.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.7.0"
+    "typescript": "^3.2.2"
   },
   "scripts": {
-    "build": "rm -rf dist && babel -d dist src",
-    "watch": "rm -rf dist && babel -w -d dist src",
+    "build": "rm -rf dist && tsc",
+    "watch": "rm -rf dist && tsc -w",
     "prepare": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -38,6 +34,6 @@
     "url": "https://github.com/gtklocker/bittrex-orderbook.git"
   },
   "files": [
-    "dist"
+    "/dist/src"
   ]
 }
