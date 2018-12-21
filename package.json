@@ -2,7 +2,7 @@
   "name": "bittrex-orderbook",
   "version": "2.0.8",
   "description": "Follow the Bittrex orderbook in real time",
-  "main": "dist/src/index.js",
+  "main": "dist/index.js",
   "dependencies": {
     "cloudscraper": "^1.4.1",
     "signalr-client": "^0.0.17",
@@ -34,6 +34,6 @@
     "url": "https://github.com/gtklocker/bittrex-orderbook.git"
   },
   "files": [
-    "/dist/src"
+    "/dist/"
   ]
 }
