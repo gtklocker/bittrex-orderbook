@@ -22,7 +22,7 @@ class BittrexOrderBook {
     })
   }
 
-  public market (market: MarketName): void {
+  public market (market: MarketName): any {
     if (!this.haveMarket(market)) {
             // create market now
       this.markets[market] = new Market(market)
@@ -34,7 +34,7 @@ class BittrexOrderBook {
     return this.markets[market]
   }
 
-  subscribeToMarket (market: MarketName): any {
+  subscribeToMarket (market: MarketName): Promise<any> {
     return this.conn.call('SubscribeToExchangeDeltas', market)
   }
 

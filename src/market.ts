@@ -1,8 +1,25 @@
 import BidOrderBook from './bidorderbook'
 import AskOrderBook from './askorderbook'
+import { OrderBookRecord } from './orderbook'
 import EventEmitter from 'events'
 
 type MarketName = string
+
+type Fill = {
+  Id: number,
+  TimeStamp: string,
+  Quantity: number,
+  Price: number,
+  Total: number,
+  FillType: 'FILL' | 'PARTIAL_FILL',
+  OrderType: 'BUY' | 'SELL'
+}
+
+type OrderBookState = {
+  Buys: OrderBookRecord[]
+  Sells: OrderBookRecord[],
+  Fills: Fill[]
+}
 
 class Market extends EventEmitter {
   public name: MarketName
@@ -20,7 +37,7 @@ class Market extends EventEmitter {
     this.asks = new AskOrderBook()
   }
 
-  onInitialState (state: any): void {
+  onInitialState (state: OrderBookState): void {
     let { Sells, Buys } = state
 
         // type 0 means new order
