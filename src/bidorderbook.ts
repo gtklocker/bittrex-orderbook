@@ -1,11 +1,11 @@
-import OrderBook from './orderbook'
+import OrderBook, { OrderBookRecord } from './orderbook'
 
 class BidOrderBook extends OrderBook {
   constructor () {
     super()
   }
 
-  top (limit = 1) {
+  top (limit = 1): OrderBookRecord[] {
     const rates = Object.values(this.store).map(o => o.rate)
 
     rates.sort((a, b) => b - a)

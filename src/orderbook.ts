@@ -1,10 +1,13 @@
-type OrderBookRecord = {
+export type OrderBookRecord = {
   rate: number,
   quantity: number
 }
 
+// {key: Rate => OrderBookRecord}
+type OrderBookTable = {[key: string]: OrderBookRecord}
+
 abstract class OrderBook {
-  public store: {[key: string]: OrderBookRecord} = {}
+  public store: OrderBookTable = {}
 
   constructor () {
     this.onOrderEvent = this.onOrderEvent.bind(this)
@@ -31,7 +34,7 @@ abstract class OrderBook {
     }
   }
 
-  abstract top (limit: number): any[]
+  abstract top (limit: number): OrderBookRecord[]
 }
 
 export default OrderBook
