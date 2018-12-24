@@ -5,6 +5,7 @@
     "outDir": "./dist/",
     "strict": true,
     "esModuleInterop": true,
-    "lib": ["es2017"]
+    "lib": ["es2017"],
+    "noImplicitAny": false
   }
 }
