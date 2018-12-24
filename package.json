@@ -9,6 +9,7 @@
     "winston": "^2.3.1"
   },
   "devDependencies": {
+    "bmocha": "^0.1.8",
     "typescript": "^3.2.2"
   },
   "scripts": {
