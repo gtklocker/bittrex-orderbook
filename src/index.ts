@@ -5,7 +5,7 @@ type MarketName = string
 
 class BittrexOrderBook {
   public markets: {[id: string]: any} = {}
-  public conn: any
+  public conn
 
   constructor () {
     this.setupConn()
@@ -14,7 +14,7 @@ class BittrexOrderBook {
   private setupConn (): void {
     this.conn = new BittrexConnection()
 
-    this.conn.on('updateExchangeState', (update: any) => {
+    this.conn.on('updateExchangeState', (update) => {
       const market = update.MarketName
       if (this.haveMarket(market)) {
         this.markets[market].onUpdateExchangeState(update)

@@ -14,7 +14,7 @@ abstract class OrderBook {
     this.top = this.top.bind(this)
   }
 
-  onOrderEvent (orderEvent: any): void {
+  onOrderEvent (orderEvent): void {
     switch (orderEvent.Type) {
       case 0: // new
       case 2: // update
