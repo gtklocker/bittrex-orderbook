@@ -16,7 +16,7 @@
     "build": "rm -rf dist && tsc",
     "watch": "rm -rf dist && tsc -w",
     "prepare": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "bmocha --exit dist/test/*.js"
   },
   "keywords": [
     "bittrex",
