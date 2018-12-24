@@ -16,6 +16,7 @@
     "build": "rm -rf dist && tsc",
     "watch": "rm -rf dist && tsc -w",
     "prepare": "npm run build",
+    "pretest": "npm run build",
     "test": "bmocha --exit dist/test/*.js"
   },
   "keywords": [
